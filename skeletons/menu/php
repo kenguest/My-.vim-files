@@ -1,0 +1,22 @@
+
+
+amenu 90.19 TSke&l.@.@&param :call TSkeletonBit("@&param")<cr>
+amenu 90.19 TSke&l.@.@&return :call TSkeletonBit("@&return")<cr>
+amenu 90.20 TSke&l.case :call TSkeletonBit("case")<cr>
+amenu 90.20 TSke&l.class :call TSkeletonBit("class")<cr>
+amenu 90.20 TSke&l.define :call TSkeletonBit("define")<cr>
+amenu 90.20 TSke&l.dowhile :call TSkeletonBit("dowhile")<cr>
+amenu 90.20 TSke&l.elseif :call TSkeletonBit("elseif")<cr>
+amenu 90.20 TSke&l.for :call TSkeletonBit("for")<cr>
+amenu 90.20 TSke&l.for- :call TSkeletonBit("for-")<cr>
+amenu 90.20 TSke&l.forall :call TSkeletonBit("forall")<cr>
+amenu 90.20 TSke&l.foreach :call TSkeletonBit("foreach")<cr>
+amenu 90.20 TSke&l.foreach_assoc :call TSkeletonBit("foreach_assoc")<cr>
+amenu 90.20 TSke&l.function :call TSkeletonBit("function")<cr>
+amenu 90.20 TSke&l.ifelse :call TSkeletonBit("ifelse")<cr>
+amenu 90.20 TSke&l.php :call TSkeletonBit("php")<cr>
+amenu 90.20 TSke&l.preg_replace :call TSkeletonBit("preg_replace")<cr>
+amenu 90.20 TSke&l.switch :call TSkeletonBit("switch")<cr>
+amenu 90.20 TSke&l.var :call TSkeletonBit("var")<cr>
+amenu 90.20 TSke&l.var_export :call TSkeletonBit("var_export")<cr>
+amenu 90.20 TSke&l.while :call TSkeletonBit("while")<cr>

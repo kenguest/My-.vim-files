@@ -1,0 +1,5 @@
+Just create a symbolic link from ~/.vimrc to the vimrc file here.
+
+    ln -s vimrc ~/.vimrc
+
+

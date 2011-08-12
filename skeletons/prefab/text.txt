@@ -1,0 +1,6 @@
+<+CURSOR+>
+
+% <+FILE NAME+>, <+DATE+><+NOTE+>
+% vi: 
+% Local Variables:
+% End:

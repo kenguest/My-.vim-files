@@ -1,0 +1,25 @@
+<?php
+/**
+ * 13783.php
+ * 13-Aug-2011
+ *
+ * PHP Version 5
+ *
+ * @category 13783
+ * @package  13783
+ * @author   Ken Guest <ken.guest@blacknight.com>
+ * @license  GPL (see http://www.gnu.org/licenses/gpl.txt)
+ * @version  CVS: <cvs_id>
+ * @link     13783.php
+ * @todo
+*/
+
+require "Date/Holidays.php";
+$composite = Date_Holidays::factory('Composite');
+$drivers = Date_Holidays::getInstalledDrivers();
+var_dump($drivers);
+$selectedDrivers = $drivers;
+foreach($selectedDrivers as $driver) {
+	$composite->addDriver(Date_Holidays::factory($driver['id']));
+}
+?>

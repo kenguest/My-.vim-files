@@ -12,6 +12,11 @@ let PHP_autoformatcomment = 1
 " TODO: Add this to SVN
 set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 
+" Highlight current line in insert mode.
+autocmd InsertLeave * se nocul
+autocmd InsertEnter * se cul 
+
+
 " Auto expand tabs to spaces
 setlocal expandtab
 

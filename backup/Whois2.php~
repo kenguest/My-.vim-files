@@ -1,0 +1,95 @@
+<?php
+/**
+ * Whois.php
+ *
+ * PHP Version 4 and 5
+ *
+ * Copyright (c) 1997-2003 The PHP Group
+ * Portions Copyright (c) 1980, 1993 The Regents of the University of
+ *   California.  All rights reserved.
+ *
+ * This source file is subject to version 3.01 of the PHP license,
+ * that is bundled with this package in the file LICENSE, and is
+ * available at through the world-wide-web at
+ * http://www.php.net/license/3_01.txt.
+ * If you did not receive a copy of the PHP license and are unable to
+ * obtain it through the world-wide-web, please send a note to
+ * license@php.net so we can mail you a copy immediately.
+ *
+ * @category  Net
+ * @package   Net_Whois
+ * @author    Seamus Venasse <seamus.venasse@polaris.ca>
+ * @copyright 1997-2003 The PHP Group
+ * @copyright 1980-1993 The Regents of the University of California (Portions)
+ * @license   http://www.php.net/license/3_01.txt PHP 3.01
+ * @version   CVS: $Id: Whois.php 314856 2011-08-13 00:00:40Z kguest $
+ * @link      http://pear.php.net/package/Net_Whois
+ */
+
+require_once 'Net/Whois.php';
+
+/**
+ * Nominet WHOIS2 support
+ *
+ * The WHOIS2 service enables WHOIS gateways/proxies to query the WHOIS database
+ * without being blocked for excessive use. Queries are sent to port 1043 on the
+ * server whois.nic.uk rather than the ordinary port 43.
+ *
+ * The format of the queries is:
+ *   <hostname of client> <IP address of client> <domain to query><cr><lf>
+ *
+ * @category Net
+ * @package  Net_Whois
+ * @author   Seamus Venasse <seamus.venasse@polaris.ca>
+ * @license  http://www.php.net/license/3_01.txt PHP 3.01
+ * @link     http://pear.php.net/package/Net_Whois
+ * @see      http://www.nominet.org.uk/other/whois2/instruct/
+ */
+class Net_Whois2 extends Net_Whois
+{
+    function query2($q, $port = 1043, $raddr = false, $rhost = false)
+    {
+        $this->setPort($port);
+        if (!$raddr) {
+            $raddr = Whois2::getRemoteIP();
+        }
+        if (!$rhost) {
+            $rhost = Whois2::getRemoteHost();
+        }
+        return $this->query("$rhost $raddr $q");
+    }
+
+    function getRemoteIP($ip = null)
+    {
+        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            // Check ip from share internet
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            // To check ip is pass from proxy
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        // Check for valid ip
+        if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+            $ip = '255.255.255.255'; //INADDR_NONE
+        }
+        return $ip;
+    }
+
+    function getRemoteHost($host = null)
+    {
+        if (isset($_SERVER['REMOTE_HOST'])) {
+            $host = $_SERVER['REMOTE_HOST'];
+        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+            $host = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+        } elseif ($ip) {
+            $host = gethostbyaddr($ip);
+        }
+        // Check is ip?
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            $host = 'unresolved';
+        }
+        return $host;
+    }
+}

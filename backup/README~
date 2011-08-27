@@ -1,5 +1,2 @@
-Just create a symbolic link from ~/.vimrc to the vimrc file here.
-
-    ln -s vimrc ~/.vimrc
-
-
+OpenStreetMap is a global project with an aim of collaboratively collecting map
+data. This package aims to make communicating with the OSM API intuitive.

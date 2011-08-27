@@ -1,0 +1,12 @@
+#!/bin/bash
+# edit_todo.sh -- created 28-Feb-2011, Ken Guest
+# @Revision:    0.0
+
+
+obexftp -v -b 00:12:D1:7C:30:3F -c C: -g TODO.txt
+cat TODO.txt
+/usr/local/bin/vim TODO.txt
+obexftp -b 00:12:D1:7C:30:3F -c C: -p TODO.txt
+rm TODO.txt
+
+# vi: 

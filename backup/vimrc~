@@ -11,6 +11,10 @@ set wildmenu
 set wildmode=list:longest,full
 "Ignore these
 set wildignore=*~,*gz,*.a,*.bmp,*.class,*.flp,*.gif,*.jpg,*.la,*.mo,*.o,*.obj,*.png,*.so,*.swp,*.xpm,.svn,CVS,*.mli,*.cmi,*.cmx
+
+" Write with sudo ":w!!"
+cnoremap w!! w !sudo tee % >/dev/null
+
 " map ,f to display all lines with keyword under cursor and ask which one to
 " jump to
 nmap ,f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
@@ -22,6 +26,7 @@ if version >= 703
   hi ColorColumn guibg=#101010
   set colorcolumn=80,120
 endif
+
 set backup              " backups are good
 set backupdir=~/.vim/backup
 set directory=~/tmp/vim

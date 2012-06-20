@@ -12,8 +12,12 @@ let PHP_autoformatcomment = 1
 " TODO: Add this to SVN
 set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 
-" Auto expand tabs to spaces
-setlocal expandtab
+" Auto expand tabs to spaces, but only if env variable 'ET' isn't set to 'no'
+if $ET=='no'
+  setlocal noexpandtab
+else
+  setlocal expandtab
+endif
 
 " Auto indent after a {
 setlocal autoindent
@@ -22,7 +26,7 @@ setlocal smartindent
 " Linewidth to 79, because of the formatoptions this is only valid for
 " comments
 setlocal textwidth=79
-setlocal formatoptions=qrocb
+" setlocal formatoptions=qrocb
 
 " Do not wrap lines automatically
 setlocal nowrap
@@ -100,8 +104,8 @@ inoremap <buffer>  { {<CR>}<C-O>O
 inoremap <buffer> [ []<LEFT>
 
 " Standard mapping after PEAR coding standard
-inoremap <buffer> ( (  )<LEFT><LEFT>
-" inoremap <buffer> ( ()<LEFT>
+" inoremap <buffer> ( (  )<LEFT><LEFT>
+inoremap <buffer> ( ()<LEFT>
 
 " Maybe this way in other coding standards
 " inoremap ( ( )<LEFT><LEFT> 
@@ -248,8 +252,8 @@ let php_parent_error_close = 1
 let php_parent_error_open = 1
 "For highlighting the Baselib methods
 let php_baselib = 1
-"Disable short tags
-let php_noShortTags = 1
+"Allow short tags
+let php_noShortTags = 0
 
 " Map F7 to remove additional DOS line endings.
 map <F7> <ESC>:%s///g<CR>

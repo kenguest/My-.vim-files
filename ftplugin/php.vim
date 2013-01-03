@@ -70,8 +70,10 @@ inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\
 " Map ; to run PHP parser check
 " noremap ; :!php5 -l %<CR>
 
-" Map ; to "add ; to the end of the line, when missing"
+" Map ; to add ; to the end of the line, when missing"
 noremap <buffer> ; :s/\([^;]\)$/\1;/<cr>
+" Map , to add , to the end of the line, when missing"
+noremap <buffer> , :s/\([^,]\)$/\1,/<cr>
 
 " DEPRECATED in favor of PDV documentation (see below!)
 " Map <CTRL>-P to run actual file with PHP CLI
@@ -267,18 +269,34 @@ endfunction
 
 "
 " {{{ abbreviations for common keypresses
-iab g global
-iab pub public
-iab pcg pgc
-iab ret return
-iab iflist if(cond){<CR>pass;<CR>} else {<CR>pass;<CR>}
-iab .? echo 
-iab .r print_r
-iab .d var_dump
-iab iselect <select name=""><CR></select>
-iab ifunction function foo(){<CR>}<CR>
-iab pf public function
-iab pfn public function
-iab psf public static function
-iab catchnone catch(Exception $e) {}
 abb fh <BACKSPACE><ESC>:r ~/config/vim/phpdocheader.txt<RETURN>
+iab ab abstract
+iab bo boolean
+iab brk break;
+iab ca catch
+iab catchnone catch(Exception $e) {}
+iab cl class
+iab cn continue
+iab df default:
+iab dowhile do {<CR>} while ();
+iab .d var_dump
+iab .? echo 
+iab Ex Exception
+iab g global
+iab iflist if(cond){<CR>pass;<CR>} else {<CR>pass;<CR>}
+iab ifunction function foo(){<CR>}<CR>
+iab iselect <select name=""><CR></select>
+iab pcg pgc
+iab pe protected
+iab pfn public function
+iab pf public function
+iab pro protected
+iab pr private
+iab psf public static function
+iab pub public
+iab pu public
+iab pvn private function
+iab ret return
+iab st static
+iab .r print_r
+iab trycatch try {<CR>} catch(Exception $e) {<CR>}

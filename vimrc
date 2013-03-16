@@ -25,6 +25,8 @@ set textwidth=79        " wrap at 79 characters
 if version >= 703
   hi ColorColumn guibg=#101010
   set colorcolumn=80,120
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 endif
 
 set backup              " backups are good
@@ -51,8 +53,9 @@ set report=2            " If I've changed more than one...
 set ruler               " show the cursor position all the time
 set splitbelow          " Put new windows on bottom
 set ttimeout notimeout timeoutlen=100
-set showmode
+set showmode            " What mode am I in?
 set encoding=utf8
+set termencoding=utf-8
 set shell=bash              
 "tabs...
 set expandtab
@@ -66,9 +69,9 @@ set shiftround
 set softtabstop=4
 set nojoinspaces
 " Show line numbers by default
-"set number
+set number
 """ Enable folding by fold markers
-""set foldmethod=marker 
+set foldmethod=marker 
 " Autoclose folds, when moving out of them
 set foldclose=all
 " Jump 5 lines when running out of the screen
@@ -86,7 +89,7 @@ set updatetime=15000        " or every 15000 milliseconds
 ""let me type in vowels with fadas and such.
 "set digraph
 " Where to find tags files for jumping to function definitions.
-set tags=./tags,../tags,../../tags,../../../tags
+set tags=./tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags
 " Where to find headers
 set path=.,/usr/include,/usr/X11/include,/usr/local/include,/usr/src/linux/include/
 
@@ -103,6 +106,7 @@ endif
 if version >= 703
   set relativenumber
   set undofile
+  set undodir=~/.vim/undo
 endif
 
 "only use the mouse for resizing windows and so on in Normal mode,
@@ -143,6 +147,11 @@ source $HOME/config/vim/wordlist.vim
 set completeopt=menu,longest,preview
 " use CTRL-F for omni completion
 imap <C-F> 
+" Helpful window navigation {{{
+" moves up and down between windows and maximises the focused window.
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+" }}}
 
 "have to toggle syntax for it to use the right colors after changing the
 "background value
@@ -199,6 +208,8 @@ if has("autocmd")
   au BufWritePost   *.sh             !chmod +x %
   au BufWritePost   *.pl             !chmod +x %
 
+  " Transparent editing of gpg encrypted files.
+  " By Wouter Hanegraaff <wouter@blub.net>
   augroup encrypted
   au!
 
@@ -314,3 +325,6 @@ function! ShowTab()
   endif
   return TabLevel
 endfunction
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+"colors solarized

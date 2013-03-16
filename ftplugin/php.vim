@@ -33,7 +33,8 @@ setlocal nowrap
 
 " Correct indentation after opening a phpdocblock and automatic * on every
 " line
-setlocal formatoptions=qroct
+""setlocal formatoptions=qroct
+setlocal formatoptions=croq
 
 " Use php syntax check when doing :make
 setlocal makeprg=php\ -l\ %
@@ -223,12 +224,6 @@ func! PhpUnComment() range
 endfunc
 
 " }}}
-" ===== KWG ===vvv
-
-" {{{ trim trailing spaces from files before writing them
-autocmd BufWritePre *.php :%s/\s\+$//e
-"autocmd BufWritePre *.phpt :%s/\s\+$//e
-"}}}
 
 " ensure syntax is set to php
 if has("syntax")
@@ -260,14 +255,32 @@ let php_noShortTags = 0
 " Map F7 to remove additional DOS line endings.
 map <F7> <ESC>:%s///g<CR>
 
-autocmd BufWritePre *.php call ScrubTrailing()
-func! ScrubTrailing()
+func! PreWriteTidyUp()
+    " use silent! to prevent substitutions from getting into the general
+    " command history
     let save_cursor = getpos('.')
-    %s/\s\+$//e
+    silent! %s/\s\+$//ge
+    silent! %s/\($\n\s*\)\+\%$//ge
+    silent! %s/){/) {/ge
+    silent! %s/( /(/ge
+    silent! %s/if(/if (/ge
+    silent! %s/var_dump /var_dump/ge
+    silent! %s/while(/while (/ge
     call setpos('.', save_cursor)
 endfunction
 
-"
+function! Phpcs()
+    " phpcs
+    ! /usr/bin/phpcs --standard=PEAR "%"
+    cwindow
+endfunction
+
+if !exists("autocommands_loaded")
+    let autocommands_loaded = 1
+    autocmd BufWritePost *.php call Phpcs()
+    autocmd BufWritePre *.php call PreWriteTidyUp()
+endif
+
 " {{{ abbreviations for common keypresses
 abb fh <BACKSPACE><ESC>:r ~/config/vim/phpdocheader.txt<RETURN>
 iab ab abstract
@@ -280,6 +293,7 @@ iab cn continue
 iab df default:
 iab dowhile do {<CR>} while ();
 iab .d var_dump
+iab .e var_export
 iab .? echo 
 iab Ex Exception
 iab g global

@@ -327,4 +327,3 @@ function! ShowTab()
 endfunction
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-"colors solarized

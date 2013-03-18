@@ -280,9 +280,13 @@ if !exists("autocommands_loaded")
     autocmd BufWritePost *.php call Phpcs()
     autocmd BufWritePre *.php call PreWriteTidyUp()
 endif
-
 " {{{ abbreviations for common keypresses
+
 abb fh <BACKSPACE><ESC>:r ~/config/vim/phpdocheader.txt<RETURN>
+iab .d var_dump
+iab .e var_export
+iab .r print_r
+iab .? echo 
 iab ab abstract
 iab bo boolean
 iab brk break;
@@ -292,9 +296,6 @@ iab cl class
 iab cn continue
 iab df default:
 iab dowhile do {<CR>} while ();
-iab .d var_dump
-iab .e var_export
-iab .? echo 
 iab Ex Exception
 iab g global
 iab iflist if(cond){<CR>pass;<CR>} else {<CR>pass;<CR>}
@@ -312,5 +313,4 @@ iab pu public
 iab pvn private function
 iab ret return
 iab st static
-iab .r print_r
 iab trycatch try {<CR>} catch(Exception $e) {<CR>}

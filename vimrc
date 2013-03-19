@@ -10,7 +10,8 @@ set wildmenu
 ":set wildmode=longest,list
 set wildmode=list:longest,full
 "Ignore these
-set wildignore=*~,*gz,*.a,*.bmp,*.class,*.flp,*.gif,*.jpg,*.la,*.mo,*.o,*.obj,*.png,*.so,*.swp,*.xpm,.svn,CVS,*.mli,*.cmi,*.cmx
+set wildignore=*~,*gz,*.a,*.bmp,*.class,*.flp,*.gif,*.jpg,*.la,*.mo,*.o,*.obj
+set wildignore+=,*.png,*.so,*.swp,*.xpm,.svn,CVS,*.mli,*.cmi,*.cmx
 
 " Write with sudo ":w!!"
 cnoremap w!! w !sudo tee % >/dev/null
@@ -22,7 +23,7 @@ set ttyfast
 set backspace=indent,eol,start
 
 set textwidth=79        " wrap at 79 characters
-if version >= 703
+if v:version >= 703
   hi ColorColumn guibg=#101010
   set colorcolumn=80,120
 else
@@ -96,14 +97,14 @@ set path=.,/usr/include,/usr/X11/include,/usr/local/include,/usr/src/linux/inclu
 "set cursorline
 "if I have split windows vertically, I want them to be at least 80 chars wide
 "and 10 chars tall when active
-if version >= 600
+if v:version >= 600
   if has("windows")
     set winwidth=80
     set winheight=10
   endif
 endif        
 
-if version >= 703
+if v:version >= 703
   set relativenumber
   set undofile
   set undodir=~/.vim/undo
@@ -133,8 +134,6 @@ endif
 map s :s/select/SELECT/g<CR>:s/from/FROM/g<CR>:s/where/WHERE/g<CR>
 "macro for inserting current time-stamp
 map T  "='['.strftime("%c").']'<CR>p
-"....
-map M :%s/modified="\d\d\d\d-\d\d-\d\d"/\="modified=\"".strftime("%Y-%m-%d")."\""<CR>
 " use Q for formatting, not ex-mode:
 map Q gq
 " }}}
@@ -302,7 +301,7 @@ endfunction
 source $HOME/.vim/scripts/multvals.vim
 source $HOME/.vim/scripts/genutils.vim
 let tskelUserName='Ken Guest'
-let tskelUserEmail='ken@guest.cx'
+let tskelUserEmail='ken@linux.ie'
 source $HOME/.vim/overrides.vim
 " }}}
 highlight Comment ctermfg=darkgreen

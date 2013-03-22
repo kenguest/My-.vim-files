@@ -19,7 +19,9 @@ cnoremap w!! w !sudo tee % >/dev/null
 " map ,f to display all lines with keyword under cursor and ask which one to
 " jump to
 nmap ,f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+" Optimize for fast terminal connections
 set ttyfast
+" Allow backspace in insert mode
 set backspace=indent,eol,start
 
 set textwidth=79        " wrap at 79 characters
@@ -200,8 +202,10 @@ if has("autocmd")
   au BufNewFile,BufRead *.mail    set syntax=mail
   au BufNewFile,BufRead *.vim     set foldmethod=marker 
   au BufNewFile,BufRead *.vim     set nospell
-  autocmd BufNewFile ~/.vim/skeletons/*.suffix TSkeletonSetup othertemplate.suffix
-  autocmd BufNewFile *.suffix       TSkeletonSetup template.suffix
+    " Treat .json files as .js
+  au BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  au BufNewFile ~/.vim/skeletons/*.suffix TSkeletonSetup othertemplate.suffix
+  au BufNewFile *.suffix       TSkeletonSetup template.suffix
 
   " Automatically chmod +x Shell and Perl scripts
   au BufWritePost   *.sh             !chmod +x %
@@ -326,3 +330,11 @@ function! ShowTab()
 endfunction
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+" Respect modeline in files
+set modeline
+set modelines=4
+" Enable per-directory .vimrc files and disable unsafe commands in them
+set exrc
+" force 256 colours on terminals
+set t_Co=256
+

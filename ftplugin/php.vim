@@ -251,6 +251,8 @@ let php_parent_error_open = 1
 let php_baselib = 1
 "Allow short tags
 let php_noShortTags = 0
+let php_smart_members = 1
+let php_alt_properties = 1
 
 " Map F7 to remove additional DOS line endings.
 map <F7> <ESC>:%s///g<CR>
@@ -259,6 +261,7 @@ func! PreWriteTidyUp()
     " use silent! to prevent substitutions from getting into the general
     " command history
     let save_cursor = getpos('.')
+    let old_query = getreg('/')
     silent! %s/\s\+$//ge
     silent! %s/\($\n\s*\)\+\%$//ge
     silent! %s/){/) {/ge
@@ -267,6 +270,7 @@ func! PreWriteTidyUp()
     silent! %s/var_dump /var_dump/ge
     silent! %s/while(/while (/ge
     call setpos('.', save_cursor)
+    call setreg('/', old_query)
 endfunction
 
 function! Phpcs()

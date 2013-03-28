@@ -11,7 +11,7 @@ set wildmenu
 set wildmode=list:longest,full
 "Ignore these
 set wildignore=*~,*gz,*.a,*.bmp,*.class,*.flp,*.gif,*.jpg,*.la,*.mo,*.o,*.obj
-set wildignore+=,*.png,*.so,*.swp,*.xpm,.svn,CVS,*.mli,*.cmi,*.cmx
+set wildignore+=*.png,*.so,*.swp,*.xpm,.svn,CVS,*.mli,*.cmi,*.cmx
 
 " Write with sudo ":w!!"
 cnoremap w!! w !sudo tee % >/dev/null

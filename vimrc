@@ -59,7 +59,7 @@ set ttimeout notimeout timeoutlen=100
 set showmode            " What mode am I in?
 set encoding=utf8
 set termencoding=utf-8
-set shell=bash              
+set shell=bash
 "tabs...
 set expandtab
 set tabstop=4
@@ -74,7 +74,7 @@ set nojoinspaces
 " Show line numbers by default
 set number
 """ Enable folding by fold markers
-set foldmethod=marker 
+set foldmethod=marker
 " Autoclose folds, when moving out of them
 set foldclose=all
 " Jump 5 lines when running out of the screen
@@ -94,7 +94,8 @@ set updatetime=15000        " or every 15000 milliseconds
 " Where to find tags files for jumping to function definitions.
 set tags=./tags,../tags,../../tags,../../../tags,../../../../tags,../../../../../tags
 " Where to find headers
-set path=.,/usr/include,/usr/X11/include,/usr/local/include,/usr/src/linux/include/
+set path=.
+",/usr/include,/usr/X11/include,/usr/local/include,/usr/src/linux/include/
 
 "set cursorline
 "if I have split windows vertically, I want them to be at least 80 chars wide
@@ -143,7 +144,7 @@ retab
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
 " wordlist contains fixes for my silly tpyos. 
-source $HOME/config/vim/wordlist.vim
+source ~/.vim/wordlist.vim
 " Insert mode completion options
 set completeopt=menu,longest,preview
 " use CTRL-F for omni completion
@@ -336,5 +337,5 @@ set modelines=4
 " Enable per-directory .vimrc files and disable unsafe commands in them
 set exrc
 " force 256 colours on terminals
-set t_Co=256
+"set t_Co=256
 

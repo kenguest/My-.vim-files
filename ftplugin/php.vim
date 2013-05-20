@@ -275,7 +275,7 @@ endfunction
 
 function! Phpcs()
     " phpcs
-    ! /usr/bin/phpcs --standard=PEAR "%"
+    ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PEAR "%"
     cwindow
 endfunction
 

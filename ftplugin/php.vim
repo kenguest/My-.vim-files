@@ -133,7 +133,7 @@ inoremap <buffer> ' ''<LEFT>
 
 " The completion dictionary is provided by Rasmus:
 " http://lerdorf.com/funclist.txt
-setlocal dictionary-=/home/dotxp/funclist.txt dictionary+=/home/dotxp/funclist.txt
+setlocal dictionary-=~/.vim/funclist.txt dictionary+=~/.vim/funclist.txt
 " Use the dictionary completion
 setlocal complete-=k complete+=k
 
@@ -229,7 +229,6 @@ endfunc
 if has("syntax")
     set syntax=php
 endif
-set keywordprg=pman
 " turn off spell check
 if has("spell")
   set nospell
@@ -318,3 +317,4 @@ iab pvn private function
 iab ret return
 iab st static
 iab trycatch try {<CR>} catch(Exception $e) {<CR>}
+iab 'place-holder' placeholder

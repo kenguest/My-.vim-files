@@ -1,8 +1,7 @@
 
 " {{{ Settings
 
-" Set new grep command, which ignores SVN!
-" TODO: Add this to SVN
+" Set new grep command, which ignores SVN, GIT, HG, etc. 
 set grepprg=/usr/bin/vimgrep\ $*\ /dev/null
 
 " Auto expand tabs to spaces, but only if env variable 'ET' isn't set to 'no'
@@ -68,21 +67,6 @@ set foldmethod=syntax
 " Map F7 to remove additional DOS line endings.
 map <F7> <ESC>:%s///g<CR>
 
-func! PreWriteTidyUp()
-    " use silent! to prevent substitutions from getting into the general
-    " command history
-    let save_cursor = getpos('.')
-    let old_query = getreg('/')
-    silent! %s/\s\+$//ge
-    silent! %s/\($\n\s*\)\+\%$//ge
-    silent! %s/){/) {/ge
-    silent! %s/( /(/ge
-    silent! %s/if(/if (/ge
-    silent! %s/while(/while (/ge
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfunction
-
 function! Lint()
     ! /home/kguest/dev/Apps/CFLint-0.1.7/bin/cflint -file "%" -text
     cwindow
@@ -91,5 +75,4 @@ endfunction
 if !exists("autocommands_loaded")
     let autocommands_loaded = 1
     autocmd BufWritePost *.cfm call Lint()
-    autocmd BufWritePre *.cfm call PreWriteTidyUp()
 endif

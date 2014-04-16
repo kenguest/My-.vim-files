@@ -197,6 +197,7 @@ if has("autocmd")
   au BufEnter       crontab.*     set nowritebackup
   au BufNewFile,BufRead sql*     set filetype=sql
   au BufNewFile,BufRead *.phpt    set filetype=php
+  au BufNewFile,BufRead *.as      set filetype=actionscript
   au BufNewFile,BufRead *.py      set expandtab
   au BufNewFile,BufRead *.py      set comments=:# 
   au BufNewFile,BufRead *.py      source ~/.vim/python.vim

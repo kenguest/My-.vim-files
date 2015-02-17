@@ -252,6 +252,8 @@ let php_baselib = 1
 let php_noShortTags = 0
 let php_smart_members = 1
 let php_alt_properties = 1
+let php_cs='pear'
+let rewritephp=0
 
 " Map F7 to remove additional DOS line endings.
 map <F7> <ESC>:%s///g<CR>
@@ -259,22 +261,33 @@ map <F7> <ESC>:%s///g<CR>
 func! PreWriteTidyUp()
     " use silent! to prevent substitutions from getting into the general
     " command history
-    let save_cursor = getpos('.')
-    let old_query = getreg('/')
-    silent! %s/\s\+$//ge
-    silent! %s/\($\n\s*\)\+\%$//ge
-    silent! %s/){/) {/ge
-    silent! %s/( /(/ge
-    silent! %s/if(/if (/ge
-    silent! %s/var_dump /var_dump/ge
-    silent! %s/while(/while (/ge
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
+    if g:rewritephp=='1'
+        let save_cursor = getpos('.')
+        let old_query = getreg('/')
+        silent! %s///ge
+        silent! %s/\s\+$//ge
+        silent! %s/\($\n\s*\)\+\%$//ge
+        silent! %s/){/) {/ge
+        silent! %s/( /(/ge
+        silent! %s/if(/if (/ge
+        silent! %s/var_dump /var_dump/ge
+        silent! %s/while(/while (/ge
+        call setpos('.', save_cursor)
+        call setreg('/', old_query)
+    endif
 endfunction
 
 function! Phpcs()
     " phpcs
-    ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PEAR "%"
+    "let php_cs='zend'
+    if g:php_cs=='pear'
+        ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PEAR "%"
+    
+    elseif g:php_cs=='zend'
+        ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=Zend "%"
+    else
+        ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PEAR "%"
+    endif
     cwindow
 endfunction
 
@@ -308,6 +321,7 @@ iab pcg pgc
 iab pe protected
 iab pfn public function
 iab pf public function
+iab prfn protected function
 iab pro protected
 iab pr private
 iab psf public static function

@@ -302,6 +302,7 @@ func! PhpDocFunc()
         endif
         call add(l:comment_lines, l:indent . g:pdv_cfg_Commentn . " @param" . l:paramtype . " $" . l:paramname)
     endwhile
+    call add(l:comment_lines, l:indent . g:pdv_cfg_Commentn)
 
     if l:static != ""
         call add(l:comment_lines, l:indent . g:pdv_cfg_Commentn . " @static")

@@ -302,7 +302,7 @@ abb fh <BACKSPACE><ESC>:r ~/config/vim/phpdocheader.txt<RETURN>
 iab .d var_dump
 iab .e var_export
 iab .r print_r
-iab .? echo 
+iab .? echo
 iab ab abstract
 iab bo boolean
 iab brk break;

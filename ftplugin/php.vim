@@ -34,7 +34,7 @@ setlocal nowrap
 " Correct indentation after opening a phpdocblock and automatic * on every
 " line
 ""setlocal formatoptions=qroct
-setlocal formatoptions=croq
+setlocal formatoptions=croqj
 
 " Use php syntax check when doing :make
 setlocal makeprg=php\ -l\ %
@@ -313,6 +313,7 @@ iab cn continue
 iab df default:
 iab dowhile do {<CR>} while ();
 iab Ex Exception
+iab ex extends
 iab g global
 iab iflist if(cond){<CR>pass;<CR>} else {<CR>pass;<CR>}
 iab ifunction function foo(){<CR>}<CR>

@@ -1,6 +1,15 @@
 " vim:set et sts=2 sw=2:
 " {{{  Settings  
 set nocompatible        " I want VIM not vi. B-)
+
+" Pathogen {{{
+" Read this: http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
+if has("autocmd")
+  call pathogen#infect()
+  call pathogen#helptags()
+endif
+" }}}
+"
 "show possible completions
 set wildmenu
 " Set command-line completion mode:
@@ -55,6 +64,7 @@ set laststatus=2        " Always have a status line
 set report=2            " If I've changed more than one...
 set ruler               " show the cursor position all the time
 set splitbelow          " Put new windows on bottom
+set splitright          " New windows in vertical splits to go to the right.
 set ttimeout notimeout timeoutlen=100
 set showmode            " What mode am I in?
 set encoding=utf8
@@ -162,11 +172,14 @@ if has("syntax")
   if v:progname =~ "vim.exe"
     set background=light
     color darkblue
+    colorscheme solarized
   elseif v:progname =~ "gvim"  
     set background=dark
     color darkblue
+    colorscheme solarized
   else
     set background=dark
+    colorscheme solarized
   endif  
   syntax on
 endif
@@ -338,8 +351,18 @@ set modelines=4
 " Enable per-directory .vimrc files and disable unsafe commands in them
 set exrc
 " force 256 colours on terminals
-"set t_Co=256
+set t_Co=256
 let g:rainbow_active = 0
+
+let g:syntastic_php_checkers = ['php', 'phpcs']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 " Vim. Live it. ------------------------------------------------------- {{{
 "noremap <up> <nop>
 "noremap <down> <nop>

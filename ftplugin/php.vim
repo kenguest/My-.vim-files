@@ -62,7 +62,7 @@ autocmd BufWinLeave * call clearmatches()
 nnoremap <silent><C-Left>  :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
 nnoremap <silent><C-Right> :<C-u>cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
 inoremap <silent><C-Left>  <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
-inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR> 
+inoremap <silent><C-Right> <C-o>:cal search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
 
 " }}} Settings
 
@@ -111,7 +111,7 @@ inoremap <buffer> [ []<LEFT>
 inoremap <buffer> ( ()<LEFT>
 
 " Maybe this way in other coding standards
-" inoremap ( ( )<LEFT><LEFT> 
+" inoremap ( ( )<LEFT><LEFT>
 
 inoremap <buffer> " ""<LEFT>
 inoremap <buffer> ' ''<LEFT>
@@ -293,8 +293,8 @@ endfunction
 
 if !exists("autocommands_loaded")
     let autocommands_loaded = 1
-    autocmd BufWritePost *.php call Phpcs()
-    autocmd BufWritePre *.php call PreWriteTidyUp()
+    "autocmd BufWritePost *.php call Phpcs()
+    "autocmd BufWritePre *.php call PreWriteTidyUp()
 endif
 " {{{ abbreviations for common keypresses
 
@@ -333,3 +333,8 @@ iab ret return
 iab st static
 iab trycatch try {<CR>} catch(Exception $e) {<CR>}
 iab 'place-holder' placeholder
+iab __L __LINE__
+iab __F __FILE__
+iab __FL __FILE__ . ":" . __LINE__ .
+
+let g:syntastic_ignore_files = ['.*/Zend/.*', '.*\.phtml$']

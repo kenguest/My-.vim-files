@@ -2,6 +2,19 @@
 " {{{  Settings  
 set nocompatible        " I want VIM not vi. B-)
 
+" Put at the very end of your .vimrc file.
+" << https://github.com/StanAngeloff/php.vim >>
+
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
+
 " Pathogen {{{
 " Read this: http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 if has("autocmd")
@@ -181,7 +194,11 @@ if has("syntax")
     set background=dark
     colorscheme solarized
   endif  
-  syntax on
+  if &diff
+    syntax off
+  else
+    syntax on
+  endif
 endif
 if &bg == "dark"
   highlight Comment ctermfg=darkgreen
@@ -191,6 +208,8 @@ if &bg == "dark"
 endif
 
 set pastetoggle=<F2>
+
+set printfont=courier:h8
 
 if has("autocmd")
   if v:progname =~ "vim$"
@@ -352,6 +371,8 @@ set modelines=4
 set exrc
 " force 256 colours on terminals
 set t_Co=256
+let g:php_cs='pear'
+let g:syntastic_php_phpcs_args='--standard=pear'
 let g:rainbow_active = 0
 
 let g:syntastic_php_checkers = ['php', 'phpcs']
@@ -361,8 +382,16 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+
+let g:php_syntax_extensions_enabled = 1
+let b:php_syntax_extensions_enabled = 1
+
+let g:gutentags_exclude = ['*.css', '*.html', '*.js'] 
+let g:gutentags_cache_dir = '~/.vim/gutentags'
+
 " Vim. Live it. ------------------------------------------------------- {{{
 "noremap <up> <nop>
 "noremap <down> <nop>

@@ -252,7 +252,6 @@ let php_baselib = 1
 let php_noShortTags = 0
 let php_smart_members = 1
 let php_alt_properties = 1
-let php_cs='pear'
 let rewritephp=0
 
 " Map F7 to remove additional DOS line endings.
@@ -281,14 +280,23 @@ function! Phpcs()
     " phpcs
     "let php_cs='zend'
     if g:php_cs=='pear'
-        ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PEAR "%"
-    
+        ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PSR2 "%"
+        let g:phpcsed='pear'
     elseif g:php_cs=='zend'
         ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=Zend "%"
+        let g:phpcsed='zend'
+    elseif g:php_cs=='psr2zf1'
+        ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PSR2ZF1 "%"
+        let g:phpcsed='psr2zf1'
+    elseif g:php_cs=='psr2'
+        ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PSR2 "%"
+        let g:phpcsed='psr2'
     else
         ! /usr/bin/php -l "%" && /usr/bin/phpcs --standard=PEAR "%"
+        let g:phpcsed='default'
     endif
     cwindow
+    echom g:phpcsed
 endfunction
 
 if !exists("autocommands_loaded")
@@ -337,4 +345,4 @@ iab __L __LINE__
 iab __F __FILE__
 iab __FL __FILE__ . ":" . __LINE__ .
 
-let g:syntastic_ignore_files = ['.*/Zend/.*', '.*\.phtml$']
+let g:syntastic_ignore_files = ['.*/Zend/.*', '.*\.phtml$', '.*/Twitter/Bootstrap/.*']

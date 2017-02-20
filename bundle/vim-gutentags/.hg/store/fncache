@@ -1,0 +1,16 @@
+data/plat/unix/update_tags.sh.i
+data/autoload/gutentags.vim.i
+data/doc/autotags.txt.i
+data/plat/unix/update_scopedb.sh.i
+data/plugin/tags.i
+data/autoload/gutentags/cscope.vim.i
+data/.hgignore.i
+data/plat/win32/update_scopedb.cmd.i
+data/plugin/gutentags.vim.i
+data/plat/win32/update_tags.cmd.i
+data/doc/gutentags.txt.i
+data/res/ctags.options.i
+data/LICENSE.i
+data/autoload/gutentags/ctags.vim.i
+data/plugin/autotags.vim.i
+data/README.md.i

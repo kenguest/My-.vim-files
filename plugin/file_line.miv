@@ -1,0 +1,76 @@
+if exists('g:loaded_file_line') || (v:version < 701)
+  finish
+endif
+let g:loaded_file_line = 1
+
+
+"
+" Define a list with all possible expressions:
+" * matches file(10) or file(line:col)
+" * Accept file:line:column: or file:line:column and file:line also
+"
+let s:regexps = [
+      \ '\([^(]\{-1,}\)(\%(\(\d\+\)\%(:\(\d*\):\?\)\?\))',
+      \ '\(.\{-1,}\):\%(\(\d\+\)\%(:\(\d*\):\?\)\?\)\?'
+      \]
+
+
+augroup file_line
+  autocmd!
+  autocmd VimEnter * call s:startup()
+augroup END
+
+
+function! s:startup()
+  augroup file_line
+    autocmd! BufNewFile * nested call s:goto_file_line()
+    autocmd! BufRead    * nested call s:goto_file_line()
+  augroup END
+
+  for argidx in range(0, argc()-1)
+    execute argidx+1 'argument'
+    let argname = argv(argidx)
+    let fname   = s:goto_file_line(argname)
+    if fname != argname
+      execute argidx+1 'argdelete'
+      execute argidx   'argadd' fname
+    endif
+  endfor
+
+  if argc() > 1
+    execute '1argument'
+    filetype detect
+	syntax on
+  endif
+endfunction
+
+function! s:goto_file_line(...)
+  let file_line_col = a:0 > 0 ? a:1 : bufname('%')
+  if filereadable(file_line_col) || file_line_col ==# ''
+    return file_line_col
+  endif
+
+  for regexp in s:regexps
+    let matches =  matchlist(file_line_col, regexp)
+    if !empty(matches)
+      let fname = matches[1]
+      let line  = matches[2] ==# '' ? '0' : matches[2]
+      let col   = matches[3] ==# '' ? '0' : matches[3]
+
+      if filereadable(fname)
+        let bufnr = bufnr('%')
+        exec 'keepalt edit ' . fnameescape(fname)
+        exec 'bwipeout ' bufnr
+
+        exec line
+        exec 'normal! ' . col . '|'
+        normal! zv
+        normal! zz
+        filetype detect
+      endif
+
+      return fname
+    endif
+  endfor
+endfunction
+" vim: set sts=4 sw=4 noexpandtab ff=unix fdm=marker :

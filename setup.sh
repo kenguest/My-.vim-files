@@ -4,7 +4,7 @@
 # @Revision:    0.0
 
 if [ ! -f ~/.vimrc ] ; then
-	ln -sv `pwd` ~/.vimrc
+	ln -sv `pwd`/vimrc ~/.vimrc
 else
 	echo "~/.vimrc already exists"
 fi

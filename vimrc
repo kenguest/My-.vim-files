@@ -1,19 +1,26 @@
-" vim:set et sts=2 sw=2:
-" {{{  Settings  
+"vim:set et sts=2 sw=2:
+" {{{  Settings 
 set nocompatible        " I want VIM not vi. B-)
 
-" Put at the very end of your .vimrc file.
-" << https://github.com/StanAngeloff/php.vim >>
-
-function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endfunction
-
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
+retab
+" Use filetype plugins, e.g. for PHP
+filetype plugin on
+" wordlist contains fixes for my silly tpyos. 
+source ~/.vim/wordlist.vim
+" Insert mode completion options
+set completeopt=menu,longest,preview
+" use CTRL-F for omni completion
+imap <C-F> 
+" Enable per-directory .vimrc files and disable unsafe commands in them
+set exrc
+" force 256 colours on terminals
+set t_Co=256
+"
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+"
+set pastetoggle=<F2>
+"
+set printfont=courier:h8
 
 " Pathogen {{{
 " Read this: http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
@@ -22,7 +29,7 @@ if has("autocmd")
   call pathogen#helptags()
 endif
 " }}}
-"
+
 "show possible completions
 set wildmenu
 " Set command-line completion mode:
@@ -155,7 +162,8 @@ endif
 
 
 " }}}
-" {{{ macros    
+
+" {{{ Macros 
 "macro for uppercasing some SQL built-in functions
 map s :s/select/SELECT/g<CR>:s/from/FROM/g<CR>:s/where/WHERE/g<CR>
 "macro for inserting current time-stamp
@@ -163,21 +171,14 @@ map T  "='['.strftime("%c").']'<CR>p
 " use Q for formatting, not ex-mode:
 map Q gq
 " }}}
-retab
-" Use filetype plugins, e.g. for PHP
-filetype plugin on
-" wordlist contains fixes for my silly tpyos. 
-source ~/.vim/wordlist.vim
-" Insert mode completion options
-set completeopt=menu,longest,preview
-" use CTRL-F for omni completion
-imap <C-F> 
+
 " Helpful window navigation {{{
 " moves up and down between windows and maximises the focused window.
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 " }}}
 
+" Syntax color coding {{{
 "have to toggle syntax for it to use the right colors after changing the
 "background value
 if has("syntax")
@@ -206,11 +207,10 @@ if &bg == "dark"
   highlight StatusLine ctermfg=white ctermbg=blue cterm=bold
   highlight StatusLineNC ctermfg=lightgray ctermbg=black
 endif
+highlight Comment ctermfg=darkgreen
+" }}}
 
-set pastetoggle=<F2>
-
-set printfont=courier:h8
-
+" Autocommands {{{
 if has("autocmd")
   if v:progname =~ "vim$"
     au BufEnter * let &titlestring = $USER . "@" . hostname() . ":$vim %-0.65F"
@@ -220,8 +220,10 @@ if has("autocmd")
     endif
   endif
 
+  " Update status line on reads and writes {{{
   au BufWrite * call SetStatusLine()
   au BufRead * call SetStatusLine()
+  " }}}
 
   au BufEnter *     set title titlelen=79
 "  cron on FreeBSD doesn't like backups being made.
@@ -245,7 +247,7 @@ if has("autocmd")
   au BufWritePost   *.sh             !chmod +x %
   au BufWritePost   *.pl             !chmod +x %
 
-  " Transparent editing of gpg encrypted files.
+  " Transparent editing of gpg encrypted files. {{{
   " By Wouter Hanegraaff <wouter@blub.net>
   augroup encrypted
   au!
@@ -281,8 +283,10 @@ if has("autocmd")
   autocmd BufWritePost,FileWritePost  *.gpg silent u
   autocmd BufWritePost,FileWritePost  *.gpg set nobin
   augroup END
-
+  " }}}
 endif
+" }}}
+
 "{{{ <home> toggles between start of line and start of text
 "<home> toggles between start of line and start of text
 imap <khome> <home>
@@ -298,6 +302,7 @@ function Home()
     endif
 endfunction
 "}}}
+"
 "{{{<end> goes to end of screen before end of line
 imap <kend> <end>
 nmap <kend> <end>
@@ -320,10 +325,13 @@ function End()
 endfunction
 
 "}}}
-"make F10 call make for linting etc.
+
+"make F10 call make for linting etc. {{{
 inoremap <silent> <F10> <C-O>:make<CR>
 map <silent> <F10> :make<CR>
-"F5 toggles spell check
+" }}}
+
+"F5 toggles spell check {{{
 inoremap <silent> <F5> <C-O>:call SpellToggle()<CR>
 map <silent> <F5> :call SpellToggle()<CR>
 function SpellToggle()
@@ -333,6 +341,7 @@ function SpellToggle()
         set spell
     endif
 endfunction
+" }}}
 
 " {{{  GenUtils
 "genutils is dependant on multvals so the order they are loaded in is important
@@ -342,7 +351,8 @@ let tskelUserName='Ken Guest'
 let tskelUserEmail='ken@linux.ie'
 source $HOME/.vim/overrides.vim
 " }}}
-highlight Comment ctermfg=darkgreen
+
+"Statusline {{{
 "highlight StatusLine ctermfg=yellow ctermbg=red cterm=bold
 highlight StatusLineNC ctermfg=lightgray ctermbg=blue
 let g:netrw_ftp_cmd="ftp -p"
@@ -362,16 +372,14 @@ function! ShowTab()
   endif
   return TabLevel
 endfunction
+"}}}
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-" Respect modeline in files
+" Respect modeline in files {{{
 set modeline
 set modelines=4
-" Enable per-directory .vimrc files and disable unsafe commands in them
-set exrc
-" force 256 colours on terminals
-set t_Co=256
-let g:php_cs='pear'
+"}}}
+
+" Syntastic settings {{{
 let g:syntastic_php_phpcs_args='--standard=pear'
 let g:rainbow_active = 0
 
@@ -384,15 +392,32 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+" }}}
 
+" Some PHP things {{{
+" Put at the very end of your .vimrc file.
+" << https://github.com/StanAngeloff/php.vim >>
 
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
+let g:php_cs='pear'
 let g:php_syntax_extensions_enabled = 1
 let b:php_syntax_extensions_enabled = 1
+" }}}
 
+" gutentags {{{
 let g:gutentags_exclude = ['*.css', '*.html', '*.js'] 
 let g:gutentags_cache_dir = '~/.vim/gutentags'
+" }}}:w
 
-" Vim. Live it. ------------------------------------------------------- {{{
+" Vim. Live it. {{{
 "noremap <up> <nop>
 "noremap <down> <nop>
 "noremap <left> <nop>

@@ -418,12 +418,12 @@ let g:gutentags_cache_dir = '~/.vim/gutentags'
 " }}}:w
 
 " Vim. Live it. {{{
-"noremap <up> <nop>
-"noremap <down> <nop>
-"noremap <left> <nop>
-"noremap <right> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
-"inoremap <up> <nop>
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+inoremap <up> <nop>
 " }}}

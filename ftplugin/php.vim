@@ -153,7 +153,7 @@ func! InsertTabWrapper()
 endfunction
 
 " Remap the tab key to select action with InsertTabWrapper
-inoremap <buffer> <tab> <c-r>=InsertTabWrapper()<cr>
+"inoremap <buffer> <tab> <c-r>=InsertTabWrapper()<cr>
 
 " }}} Autocompletion using the TAB key
 
@@ -307,7 +307,7 @@ endif
 " {{{ abbreviations for common keypresses
 
 abb fh <BACKSPACE><ESC>:r ~/config/vim/phpdocheader.txt<RETURN>
-iab .d var_dump
+"iab .d var_dump
 iab .e var_export
 iab .r print_r
 iab .? echo
@@ -328,12 +328,10 @@ iab ifunction function foo(){<CR>}<CR>
 iab iselect <select name=""><CR></select>
 iab pcg pgc
 iab pe protected
-iab pfn public function
 iab pf public function
 iab prfn protected function
 iab pro protected
 iab pr private
-iab psf public static function
 iab pub public
 iab pu public
 iab pvn private function

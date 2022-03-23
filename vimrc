@@ -1,6 +1,7 @@
 "vim:set et sts=2 sw=2:
 " {{{  Settings 
 set nocompatible        " I want VIM not vi. B-)
+let mapleader = ","
 
 retab
 " Use filetype plugins, e.g. for PHP
@@ -286,6 +287,11 @@ if has("autocmd")
   " }}}
 endif
 " }}}
+" jump between windows without requiring ctrl-w prefix
+nmap <C-J> <C-W><C-J>
+nmap <C-K> <C-W><C-K>
+nmap <C-H> <C-W><C-H>
+nmap <C-L> <C-W><C-L>
 
 "{{{ <home> toggles between start of line and start of text
 "<home> toggles between start of line and start of text
@@ -381,7 +387,7 @@ set modelines=4
 
 " Syntastic settings {{{
 let g:syntastic_php_phpcs_args='--standard=pear'
-let g:rainbow_active = 0
+let g:rainbow_active = 1
 
 let g:syntastic_php_checkers = ['php', 'phpcs']
 set statusline+=%#warningmsg#
@@ -390,7 +396,7 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " }}}
 
@@ -416,6 +422,8 @@ let b:php_syntax_extensions_enabled = 1
 let g:gutentags_exclude = ['*.css', '*.html', '*.js'] 
 let g:gutentags_cache_dir = '~/.vim/gutentags'
 " }}}:w
+
+
 
 " Vim. Live it. {{{
 noremap <up> <nop>

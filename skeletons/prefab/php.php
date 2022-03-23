@@ -3,7 +3,7 @@
  * <+FILE NAME+><+NOTE+>
  * <+DATE+>
  *
- * PHP Version 5
+ * PHP Version 7.4
  *
  * @category <+FILE NAME ROOT:s/\.class$//+>
  * @package  <+FILE NAME ROOT:s/\.class$//+>
@@ -11,8 +11,7 @@
  * @license  <+LICENSE+>
  * @version  CVS: <cvs_id>
  * @link     <+FILE NAME+>
- * @todo
-*/
+ */
 
 <+CURSOR+>
 
